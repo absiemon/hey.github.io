@@ -6,6 +6,11 @@ const port = 8001;
 app.use('/', require('./routes'));  // whether the request comes from home page sends to the routs folder
 
 
+
+
+
+
+
 app.listen(port, (err)=>{
     if(err){
         console.log(`Error connecting to the server: ${err}`);
