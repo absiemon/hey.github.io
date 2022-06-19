@@ -2,6 +2,7 @@ module.exports.home = (req, res) =>{        /// this controller will be availabl
 
     // return res.end('<h1>Express is running</h1>');
 
+    console.log(req.cookies)
     // rather than ending up the response now we will render the home.ejs file
 
     return res.render('home', {

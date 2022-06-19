@@ -1,3 +1,5 @@
+const User = require('../models/user');
+
 module.exports.profile = (req, res)=>{        //profile is the name for rendring user profile we have to do users/profile to render userProfile 
 
     // return res.end('<h1> User Profile</h1>');
@@ -26,6 +28,35 @@ module.exports.signUp = (req, res)=>{
 
 // getting the signUp data from the signUp form 
 module.exports.create = (req, res)=>{
+
+    if(req.body.password != req.body.confirm_password){
+        return res.redirect('back');
+    }
+    //if email already exiests then
+
+    User.findOne({email: req.body.email}, (err, user)=>{
+
+        if(err){ 
+            console.log('Error in finding the email', err);
+            return
+        }
+
+        // if user is not created
+        if(!user){
+
+            User.create(req.body , (err, user)=>{
+                if(err){ 
+                    console.log('Error in creating the user', err);
+                    return
+                }
+                return res.redirect('/users/login'); // create user and send to the login page.
+            })
+        }
+        // if user is already available
+        else{
+            return res.redirect('back');
+        }
+    })
 
 }
 

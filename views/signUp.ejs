@@ -3,18 +3,40 @@
 <html>
     <head>
         <title> <%= title %> </title>
+
+        <link rel="stylesheet" href="/css/signUp.css">
+
     </head>
 
     <body>
         <h1> <%= title %> </h1>
 
-        <form action="/users/create" method="POST">
+        <!-- <form action="/users/create" method="POST">
             <input type="text" name="name" placeholder="Enter your name" required>
             <input type="text" name="email" placeholder="Enter your email" required>
             <input type="text" name="password" placeholder="Enter your password" required>
             <input type="text" name="confirm-password" placeholder="Confirm your password" required>
             
-            <button type="submit"> singUp</button>
-        </form>
+            <button type="submit"> singUp</button> -->
+        <!-- </form> -->
+
+        <div>
+            <form action="/users/create" method="POST">
+                
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name">
+
+              <label for="email">Email</label>
+              <input type="email" id="fname" name="email" placeholder="Your name email" required>
+          
+              <label for="password">Password</label>
+              <input type="password" id="lname" name="password" placeholder="Your password" required>
+              
+              <label for="password"> Confirm Password</label>
+              <input type="password" id="lname" name="confirm_password" placeholder=" Confirm Your password" required>                    
+            
+              <input type="submit" value="signUp">
+            </form>
+          </div>
     </body>
 </html>
