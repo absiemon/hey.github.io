@@ -4,9 +4,11 @@ module.exports.profile = (req, res)=>{        //profile is the name for rendring
 
     // return res.end('<h1> User Profile</h1>');
 
-    return res.render('userProfile', {     // userProfile.ejs will be rendered 
+    return res.render('profile', {     // profile.ejs will be rendered 
         title:'User-Profile'
     })
+
+
 }
 
 // render the login page
@@ -63,4 +65,28 @@ module.exports.create = (req, res)=>{
 // getting the login data from the login form
 module.exports.createSession = (req, res)=>{
     
+    // finding the the user 
+    User.findOne({email: req.body.email}, (err, user)=>{
+
+        if(err) {
+            console.log('Error in creating the user', err);
+            return
+        }
+        // if user founded
+        if(user){
+            // check is password is not correct
+            if(user.password != req.body.password){
+                return res.redirect('back');
+            }
+
+            // if password is correct then create session for the by creating the cookie
+            res.cookie('user_id', user.id);
+            return res.redirect('/users/profile')
+
+        }
+        // if user not found
+        else{
+            return res.redirect('back');
+        }
+    })
 }
