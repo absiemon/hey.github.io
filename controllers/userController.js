@@ -2,13 +2,38 @@ const User = require('../models/user');
 
 module.exports.profile = (req, res)=>{        //profile is the name for rendring user profile we have to do users/profile to render userProfile 
 
-    // return res.end('<h1> User Profile</h1>');
 
-    return res.render('profile', {     // profile.ejs will be rendered 
-        title:'User-Profile'
-    })
+    // return res.render('profile', {     // profile.ejs will be rendered 
+    //     title:'User-Profile'
+    // })
 
+    //Now we will render profile only user is logged in
+    
+    // if user is logged in then its id will be in cookie
+    if(req.cookies.user_id){              //user_id is in createSession
+        //check if user_id in cookies matches with the database
+        User.findById(req.cookies.user_id, (err, user)=>{ 
 
+            if(err) { console.log('you have not logged in', err); return}
+
+            // if user is available
+            if(user){ 
+                return res.render('profile', { 
+                    title: 'User Profile', 
+                    user: user   
+                    // above key value pairs will go to the profile.ejs where it will be accessible by its key name
+                })
+            }
+            //if user is  not available
+            return res.redirect('/users/login');
+        });
+
+    
+    }
+    else{
+        return res.redirect('/users/login');
+
+    }
 }
 
 // render the login page
@@ -89,4 +114,12 @@ module.exports.createSession = (req, res)=>{
             return res.redirect('back');
         }
     })
+}
+
+
+module.exports.signOut = (req, res)=>{
+
+    res.cookie('user_id', 1213);
+
+    return res.redirect('/users/login');
 }

@@ -4,5 +4,13 @@
     </head>
     <body>
         <h1>This is the user profile</h1>
+        <hr>
+        <p> Name: <%= user.name %> </p>
+        <p> Email: <%= user.email %> </p>
+
+        <form action="/users/sign-out" method="POST">
+
+            <button type="submit">Sign out</button>
+        </form>
     </body>
 </html>
